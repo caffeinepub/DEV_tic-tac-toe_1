@@ -1,0 +1,20 @@
+{
+  "overview": "A simple browser-based tic-tac-toe game where you play as X against an AI opponent.",
+  "features": [
+    "3x3 game board with click-to-play",
+    "Single-player vs AI opponent",
+    "Win and draw detection",
+    "Turn indicator and game status",
+    "Restart button to play again",
+    "Responsive layout for desktop and mobile"
+  ],
+  "category": "game",
+  "tags": [
+    "game",
+    "tic-tac-toe",
+    "single-player",
+    "ai",
+    "interactive"
+  ],
+  "last_updated": "2026-06-22T16:26:07.339Z"
+}
