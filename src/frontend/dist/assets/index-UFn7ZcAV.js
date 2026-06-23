@@ -35623,14 +35623,14 @@ function getBestMove(board) {
   for (const line of WINNING_LINES) {
     const [a2, b2, c2] = line;
     const vals = [board[a2], board[b2], board[c2]];
-    if (vals.filter((v2) => v2 === "O").length === 2 && vals.includes(null)) {
+    if (vals.filter((v2) => v2 === "X").length === 2 && vals.includes(null)) {
       return line[vals.indexOf(null)];
     }
   }
   for (const line of WINNING_LINES) {
     const [a2, b2, c2] = line;
     const vals = [board[a2], board[b2], board[c2]];
-    if (vals.filter((v2) => v2 === "X").length === 2 && vals.includes(null)) {
+    if (vals.filter((v2) => v2 === "O").length === 2 && vals.includes(null)) {
       return line[vals.indexOf(null)];
     }
   }
@@ -35671,7 +35671,7 @@ function Cell({
           initial: { scale: 0.3, opacity: 0 },
           animate: { scale: 1, opacity: 1 },
           transition: { type: "spring", stiffness: 400, damping: 22 },
-          className: value === "X" ? "text-foreground" : "text-primary",
+          className: value === "O" ? "text-foreground" : "text-primary",
           children: value
         },
         value + index2
@@ -35689,7 +35689,7 @@ function App() {
     const result = checkWinner(newBoard);
     if (result) {
       setWinLine(result.line);
-      setStatus(result.winner === "X" ? "won" : "lost");
+      setStatus(result.winner === "O" ? "won" : "lost");
       return true;
     }
     if (newBoard.every((c2) => c2 !== null)) {
@@ -35703,7 +35703,7 @@ function App() {
       if (!isPlayerTurn || board[index2] || status !== "playing" || isAiThinking)
         return;
       const newBoard = [...board];
-      newBoard[index2] = "X";
+      newBoard[index2] = "O";
       setBoard(newBoard);
       if (!resolveGame(newBoard)) {
         setIsPlayerTurn(false);
@@ -35717,7 +35717,7 @@ function App() {
     const timer = setTimeout(() => {
       const move = getBestMove(board);
       const newBoard = [...board];
-      newBoard[move] = "O";
+      newBoard[move] = "X";
       setBoard(newBoard);
       if (!resolveGame(newBoard)) {
         setIsPlayerTurn(true);
@@ -35760,7 +35760,7 @@ function App() {
               ].join(" ")
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-display text-xs tracking-widest text-muted-foreground uppercase", children: "X — You" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-display text-xs tracking-widest text-muted-foreground uppercase", children: "O — You" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground mx-1", children: "vs" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "div",
@@ -35771,7 +35771,7 @@ function App() {
               ].join(" ")
             }
           ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-display text-xs tracking-widest text-muted-foreground uppercase", children: "O — AI" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-display text-xs tracking-widest text-muted-foreground uppercase", children: "X — AI" })
         ]
       }
     ),

@@ -30,7 +30,7 @@ function getBestMove(board: Cell[]): number {
   for (const line of WINNING_LINES) {
     const [a, b, c] = line;
     const vals = [board[a], board[b], board[c]];
-    if (vals.filter((v) => v === "O").length === 2 && vals.includes(null)) {
+    if (vals.filter((v) => v === "X").length === 2 && vals.includes(null)) {
       return line[vals.indexOf(null)];
     }
   }
@@ -38,7 +38,7 @@ function getBestMove(board: Cell[]): number {
   for (const line of WINNING_LINES) {
     const [a, b, c] = line;
     const vals = [board[a], board[b], board[c]];
-    if (vals.filter((v) => v === "X").length === 2 && vals.includes(null)) {
+    if (vals.filter((v) => v === "O").length === 2 && vals.includes(null)) {
       return line[vals.indexOf(null)];
     }
   }
@@ -97,7 +97,7 @@ function Cell({
             initial={{ scale: 0.3, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 400, damping: 22 }}
-            className={value === "X" ? "text-foreground" : "text-primary"}
+            className={value === "O" ? "text-foreground" : "text-primary"}
           >
             {value}
           </motion.span>
@@ -118,7 +118,7 @@ export default function App() {
     const result = checkWinner(newBoard);
     if (result) {
       setWinLine(result.line);
-      setStatus(result.winner === "X" ? "won" : "lost");
+      setStatus(result.winner === "O" ? "won" : "lost");
       return true;
     }
     if (newBoard.every((c) => c !== null)) {
@@ -133,7 +133,7 @@ export default function App() {
       if (!isPlayerTurn || board[index] || status !== "playing" || isAiThinking)
         return;
       const newBoard = [...board];
-      newBoard[index] = "X";
+      newBoard[index] = "O";
       setBoard(newBoard);
       if (!resolveGame(newBoard)) {
         setIsPlayerTurn(false);
@@ -148,7 +148,7 @@ export default function App() {
     const timer = setTimeout(() => {
       const move = getBestMove(board);
       const newBoard = [...board];
-      newBoard[move] = "O";
+      newBoard[move] = "X";
       setBoard(newBoard);
       if (!resolveGame(newBoard)) {
         setIsPlayerTurn(true);
@@ -210,7 +210,7 @@ export default function App() {
           ].join(" ")}
         />
         <span className="font-display text-xs tracking-widest text-muted-foreground uppercase">
-          X — You
+          O — You
         </span>
         <span className="text-muted-foreground mx-1">vs</span>
         <div
@@ -220,7 +220,7 @@ export default function App() {
           ].join(" ")}
         />
         <span className="font-display text-xs tracking-widest text-muted-foreground uppercase">
-          O — AI
+          X — AI
         </span>
       </div>
 
